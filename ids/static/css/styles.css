@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f9f9f9;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 1rem;
+}
+
+.container {
+  max-width: 100%;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.file-zone {
+  margin-bottom: 2rem;
+}
+
+.drop-zone {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.2s ease-in-out;
+  min-height: 100px;
+}
+
+.drop-zone.dragover {
+  border-color: #666;
+  background-color: #f7f7f7;
+}
+
+.drop-zone p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.file-name {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.status {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #444;
+  min-height: 1.5rem;
+}
+
+.action-btn {
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+}
+
+.action-btn:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.action-btn:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 500px;
+    margin: 2rem auto;
+  }
+
+  .drop-zone {
+    min-height: 120px;
+  }
+}

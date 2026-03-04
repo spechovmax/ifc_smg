@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>СКИМ</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>СКИМ<br><small>система контроля информационной модели</small></h1>
+
+    <!-- IFC Upload Zone -->
+    <div class="file-zone" id="ifc-zone">
+      <h3>.IFC Файл</h3>
+      <div class="drop-zone" data-type="ifc">
+        <p>Перетащите файл сюда или кликните</p>
+        <input type="file" accept=".ifc" hidden>
+      </div>
+      <p class="file-name" id="ifc-file-name">Не выбран</p>
+    </div>
+
+    <!-- IDS / Excel Upload Zone -->
+    <div class="file-zone" id="ids-zone">
+      <h3>.IDS или .XLSX файл</h3>
+      <div class="drop-zone" data-type="ids">
+        <p>Перетащите файл сюда или кликните</p>
+        <input type="file" accept=".ids,.xlsx" hidden />
+      </div>
+      <p class="file-name" id="ids-file-name">Не выбран</p>
+    </div>
+
+    <!-- Status and Button -->
+    <div class="status" id="status">Ожидание загрузки</div>
+    <button id="validate-btn" disabled>Проверить</button>
+  </div>
+
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

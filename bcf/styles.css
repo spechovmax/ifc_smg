@@ -1,0 +1,250 @@
+/* Основные стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Стили для issue */
+.issue {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.issue-header {
+    background-color: #e9e9e9;
+    padding: 10px;
+    margin: -15px -15px 15px -15px;
+    border-radius: 5px 5px 0 0;
+}
+
+/* Стили для секций */
+.section {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 3px;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 1.1em;
+}
+
+/* Стили для таблиц */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Стили для комментариев */
+.comments-container {
+    margin-top: 10px;
+}
+
+.comment {
+    border-left: 3px solid #6c757d;
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+
+.comment-meta {
+    color: #6c757d;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.comment-text {
+    margin: 5px 0;
+}
+
+.comment-viewpoint {
+    font-size: 0.85em;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+/* Стили для списка файлов */
+.file-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 5px;
+}
+
+.file-item {
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.file-item:last-child {
+    border-bottom: none;
+}
+
+/* Стили для компонентов */
+.components-section {
+    margin-top: 10px;
+}
+
+.components-list {
+    margin-top: 5px;
+}
+
+.component {
+    display: inline-block;
+    background-color: #e1f5fe;
+    padding: 3px 6px;
+    margin: 2px;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 0.8em;
+}
+
+/* Стили для снимков */
+.snapshot-section {
+    margin-top: 10px;
+}
+
+.snapshot {
+    width: 300px;
+    height: auto;
+    max-width: 100%;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Специфичные стили для таблиц */
+.attributes-table th {
+    width: 30%;
+}
+
+.objects-table th {
+    width: 25%;
+}
+
+.elements-table th {
+    width: 20%;
+}
+
+.viewpoint-table th {
+    width: 20%;
+}
+
+/* Стили для связанных элементов */
+.related-elements {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.viewpoint-container {
+    margin-bottom: 15px;
+}
+
+/* Добавь эти стили в существующий блок <style> */
+
+.issue-header {
+    background-color: #e9e9e9;
+    padding: 10px;
+    margin: -15px -15px 15px -15px;
+    border-radius: 5px 5px 0 0;
+}
+
+.section {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 3px;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.comment-meta {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+.file-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.file-list li {
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Стили для контейнера viewpoint */
+.viewpoint-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+/* Стили для изображения */
+.snapshot {
+    width: 500px;
+    height: auto;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Стили для колонки с GUID */
+.components-column {
+    flex: 1;
+}
+
+.components-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.component {
+    font-size: 1.2em; /* Увеличенный размер шрифта */
+    padding: 8px 12px;
+    background-color: #e1f5fe;
+    border-radius: 4px;
+    font-family: monospace;
+    word-break: break-all;
+}

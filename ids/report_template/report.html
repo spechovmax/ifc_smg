@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IDS Отчёт</title>
+  <link rel="stylesheet" href="/static/css/report.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 1rem;
+      margin: 0 auto;
+      max-width: 100%;
+      background-color: #fff;
+    }
+
+    .download-button {
+      display: inline-block;
+      position: relative;
+      top: auto;
+      right: auto;
+      margin-bottom: 1rem;
+      background-color: #6c757d;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-top: 0;
+    }
+
+    table.summary {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+
+    table.summary th,
+    table.summary td {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      font-size: 0.9rem;
+    }
+
+    ul {
+      padding-left: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    .guids-list {
+      margin-top: 5px;
+      padding-left: 20px;
+      font-size: 0.9em;
+      color: #666;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .guids-list.open {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .toggle-btn {
+      background: none;
+      border: none;
+      color: #007bff;
+      cursor: pointer;
+      font-size: 0.9em;
+      margin-left: 10px;
+    }
+
+    .progress-bar {
+      background-color: #eee;
+      height: 10px;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+      overflow: hidden;
+    }
+
+    .bar-inner {
+      height: 100%;
+      transition: width 0.4s ease-in-out;
+    }
+
+    .bar-success {
+      background-color: #28a745;
+    }
+
+    .bar-fail {
+      background-color: #dc3545;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        max-width: 800px;
+        padding: 2rem;
+      }
+
+      .download-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+    }
+  </style>
+  <script>
+    function toggleGuids(element) {
+      const list = element.nextElementSibling;
+      const isOpen = list.classList.contains("open");
+
+      document.querySelectorAll(".guids-list").forEach(el => el.classList.remove("open"));
+
+      if (!isOpen) {
+        list.classList.add("open");
+        element.textContent = "Скрыть элементы";
+      } else {
+        list.classList.remove("open");
+        element.textContent = "Показать элементы";
+      }
+    }
+  </script>
+</head>
+<body>
+  <a href="{{ url_for('download_html', filename=filename) }}" class="download-button">Скачать HTML</a>
+
+  <h1>IDS Отчёт</h1>
+
+  <p><strong>Дата:</strong> {{ timestamp }}</p>
+  <p><strong>.IDS файл:</strong> {{ ids_filename }}</p>
+  <p><strong>.IFC файл:</strong> {{ ifc_filename }}</p>
+  <p><strong>Всего элементов в модели:</strong> {{ total_elements }}</p>
+
+  <!-- Сводная таблица -->
+  <table class="summary">
+    <thead>
+      <tr>
+        <th>Спецификация</th>
+        <th>Проверки</th>
+        <th>Элементы</th>
+        <th>Статус</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for spec in specs %}
+      <tr>
+        <td>{{ spec.name }}</td>
+        <td>{{ spec.checks_passed }}</td>
+        <td>{{ spec.elements_passed }}</td>
+        <td>
+          <span class="status {% if spec.status == 'passed' %}success{% else %}error{% endif %}">
+            {{ spec.status|upper }}
+          </span>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Подробности спецификаций -->
+  {% for spec in specs %}
+  <div class="spec">
+    <h2>{{ spec.name }}</h2>
+    {% if spec.description %}
+      <p><em>{{ spec.description }}</em></p>
+    {% endif %}
+
+    <p><strong>Статус:</strong>
+      <span class="status {% if spec.status == 'passed' %}success{% else %}error{% endif %}">
+        {{ spec.status|upper }}
+      </span>
+    </p>
+
+    <p><strong>Проверки:</strong> {{ spec.checks_passed }}</p>
+    <p><strong>Элементы:</strong> {{ spec.elements_passed }}</p>
+
+    {% set parts = spec.elements_passed.split('/') %}
+    {% set passed = parts[0] | int %}
+    {% set total = parts[1] | int %}
+    {% set percent = (passed * 100 / total) | int if total > 0 else 0 %}
+    <div class="progress-bar">
+      <div class="bar-inner {% if percent == 100 %}bar-success{% else %}bar-fail{% endif %}" style="width: {{ percent }}%"></div>
+    </div>
+
+    <ul>
+      {% for req in spec.requirements %}
+      <li>
+        <span class="status {% if req.status == 'passed' %}success{% else %}error{% endif %}">
+          {{ req.status|upper }}
+        </span>
+        {{ req.text }}
+
+        {% if req.failed_names %}
+        <button class="toggle-btn" onclick="toggleGuids(this)">Показать элементы</button>
+        <ul class="guids-list">
+          {% for name in req.failed_names %}
+          <li>{{ name }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+</body>
+</html>
